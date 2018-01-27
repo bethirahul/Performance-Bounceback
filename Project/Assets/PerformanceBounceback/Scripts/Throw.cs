@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class Throw : MonoBehaviour
 {
-    private SteamVR_TrackedObject trackedObj;
+    public SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device device;
     public float throwForce = 2f;
+    public GameManager GM;
 
 	//   S T A R T																										
     void Start()
     {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        ///trackedObj = GetComponent<SteamVR_TrackedObject>();
+		device = SteamVR_Controller.Input((int)trackedObj.index);
     }
 
-	//   U P D A T E																									
+	/*//   U P D A T E																									
     void Update()
     {
-        device = SteamVR_Controller.Input((int)trackedObj.index);
-    }
+        
+    }*/
 
     void OnTriggerStay(Collider col)
     {
@@ -26,7 +28,7 @@ public class Throw : MonoBehaviour
         {
             if (device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
             {
-                Debug.Log("You have released the trigger");
+				GM.Debug_Log("You have released the trigger");
 
                 //Multi Throwing
                 col.transform.SetParent(null);
@@ -38,7 +40,7 @@ public class Throw : MonoBehaviour
             }
             else if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
             {
-                Debug.Log("You are touching down the trigger on an object");
+				GM.Debug_Log("You are touching down the trigger on an object");
                 col.GetComponent<Rigidbody>().isKinematic = true;
                 col.transform.SetParent(gameObject.transform);
 

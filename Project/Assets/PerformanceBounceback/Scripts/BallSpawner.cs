@@ -7,7 +7,7 @@ public class BallSpawner : MonoBehaviour
     public static BallSpawner current;
 
     public GameObject pooledBall; //the prefab of the object in the object pool
-    public int ballsAmount = 20; //the number of objects you want in the object pool
+    public int ballsAmount;// = 20; //the number of objects you want in the object pool
     public List<GameObject> pooledBalls; //the object pool
     public static int ballPoolNum = 0; //a number used to cycle through the pooled objects
 
@@ -15,6 +15,8 @@ public class BallSpawner : MonoBehaviour
     private float cooldownLength = 0.5f;
 
     private Vector3 vector3_zero = Vector3.zero;
+
+    public GameManager GM;
 
     void Awake()
     {
@@ -50,7 +52,7 @@ public class BallSpawner : MonoBehaviour
 	        ballsAmount++;
 	        ballPoolNum = ballsAmount - 1;
 	    }
-	    Debug.Log(ballPoolNum);
+	    GM.Debug_Log("Pooled Ball Number: " + ballPoolNum);
 	    return pooledBalls[ballPoolNum];
 	}
    	

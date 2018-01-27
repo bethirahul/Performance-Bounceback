@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TrampolineMovement : MonoBehaviour
 {
-    public Vector3 direction = new Vector3(1,0,0);
-    public float moveSpeed = 3.5f;
-    public float moveTime = 3f;
+    public Vector3 direction;/// = new Vector3(1,0,0);
+    public float moveSpeed;/// = 3.5f;
+    public float moveTime;/// = 3f;
     private float time;
+    public Rigidbody rigidbody;
 	
 	//   U P D A T E																									
 	void Update()
@@ -18,6 +19,6 @@ public class TrampolineMovement : MonoBehaviour
             time = 0;
             direction = direction * -1;
         }
-        transform.position += direction * Time.deltaTime * moveSpeed;
+        rigidbody.position += direction * Time.deltaTime * moveSpeed;
 	}
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int score;
+    public bool showDebug;
 
 	/*//   S T A R T																										
 	void Start()
@@ -17,4 +18,10 @@ public class GameManager : MonoBehaviour
 	{
 		
 	}*/
+
+	public void Debug_Log(string log)
+	{
+		if(showDebug)
+			Debug.Log(log);
+	}
 }
