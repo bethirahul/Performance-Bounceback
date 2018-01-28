@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class BallSpawner : MonoBehaviour
 {
+	public bool spawnBall;
     public static BallSpawner current;
 
-    public GameObject pooledBall; //the prefab of the object in the object pool
-    public int ballsAmount;// = 20; //the number of objects you want in the object pool
-    public List<GameObject> pooledBalls; //the object pool
-    public static int ballPoolNum = 0; //a number used to cycle through the pooled objects
+    public GameObject pooledBallPrefab; //the prefab of the object in the object pool
+    [Tooltip("Number of Balls you want in the object pool when game starts")]
+    public int initialBallsLimit;// = 20; //the number of objects you want in the object pool when game starts
+    public List<Ball> ball; //the object pool
+    public static int currentBallNum = -1; //a number used to cycle through the pooled objects
+    private int count;
 
     private float cooldown;
-    private float cooldownLength = 0.5f;
+	[Tooltip("Interval between spawning balls")]
+    public float cooldownLength = 0.5f;
 
     private Vector3 vector3_zero = Vector3.zero;
 
     public GameManager GM;
+    private int i;
 
     void Awake()
     {
@@ -26,26 +31,58 @@ public class BallSpawner : MonoBehaviour
     //   S T A R T																										
     void Start()
     {
-        //Create Bullet Pool
-        pooledBalls = new List<GameObject>();
-        for (int i = 0; i < ballsAmount; i++)
-        {
-            GameObject obj = Instantiate(pooledBall);
-            obj.SetActive(false);
-            pooledBalls.Add(obj);
-        }
+        //Create ball List
+        ball = new List<Ball>();
+		for (i = 0; i < initialBallsLimit; i++)
+			AddNewBall(i);
     }
 
-	public GameObject GetPooledBall()
+    private void AddNewBall(int ballNum)
 	{
-	    ballPoolNum++;
-	    if (ballPoolNum > (ballsAmount - 1))
-	    {
-	        ballPoolNum = 0;
-	    }
-	    //if we’ve run out of objects in the pool too quickly, create a new one
+		GameObject newBallGameObject = Instantiate(pooledBallPrefab);
+		Ball newBall = newBallGameObject.GetComponent<Ball>();
+		ball.Add(newBall);
+	}
+
+	private void SpawnBall()
+	{
+		currentBallNum++;
+		count = 0;
+		while(count < ball.Count)
+		{
+			if(currentBallNum >= ball.Count)
+				currentBallNum = 0;
+			if(ball[currentBallNum].gameObject.activeSelf == false)
+			{
+				ball[currentBallNum].Activate(transform.position);
+				GM.Debug_Log("Found ball " + currentBallNum + " to activate; Searched " + count + " balls");
+				return;
+			}
+			currentBallNum++;
+			count++;
+		}
+		AddNewBall(ball.Count);// if this comes to this line, then all the balls in the list are active
+		// so, expanding the ball list by 1
+		GM.Debug_Log("All balls are active. Generated new ball; Total balls = " + ball.Count);
+		ball[ball.Count-1].Activate(transform.position);
+		currentBallNum = -1;
+
+		/*if(currentBallNum >= pooledBalls.Count)
+		{
+			GM.Debug_Log("Balls Exceded initial limit of " + pooledBalls.Count);
+			for(int i = 0; i < pooledBalls.Count; i++)
+			{
+				if(pooledBalls[i].activeSelf == false)
+				{
+					currentBallNum = i;
+					ResetBall(i);
+				}
+			}
+	    }*/
+	    /*//if we’ve run out of objects in the pool too quickly, create a new one
 	    if (pooledBalls[ballPoolNum].activeInHierarchy)
 	    {
+	    	GM.Debug_Log(ballPoolNum + " is still active");
 	        //create a new bullet and add it to the bulletList
 	        GameObject obj = Instantiate(pooledBall);
 	        pooledBalls.Add(obj);
@@ -53,21 +90,24 @@ public class BallSpawner : MonoBehaviour
 	        ballPoolNum = ballsAmount - 1;
 	    }
 	    GM.Debug_Log("Pooled Ball Number: " + ballPoolNum);
-	    return pooledBalls[ballPoolNum];
+	    return pooledBalls[ballPoolNum];*/
 	}
    	
 	//   U P D A T E																									
 	void Update()
 	{
-        cooldown -= Time.deltaTime;
-        if(cooldown <= 0)
-        {
-            cooldown = cooldownLength;
-            SpawnBall();
-        }		
+		if(spawnBall)
+		{
+			cooldown -= Time.deltaTime;
+			if(cooldown <= 0)
+			{
+				cooldown = cooldownLength;
+				SpawnBall();
+			}
+		}	
 	}
 
-    void SpawnBall()
+    /*void SpawnBall()
     {
         GameObject selectedBall = BallSpawner.current.GetPooledBall();
         selectedBall.transform.position = transform.position;
@@ -75,5 +115,5 @@ public class BallSpawner : MonoBehaviour
 		selectedRigidbody.velocity = vector3_zero;
 		selectedRigidbody.angularVelocity = vector3_zero;
         selectedBall.SetActive(true);
-    }
+    }*/
 }

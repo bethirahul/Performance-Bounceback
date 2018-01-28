@@ -14,13 +14,13 @@ public class GameManager : MonoBehaviour
 	}*/
 	
 	//   U P D A T E																									
-	void Update()
+	/*void Update()
 	{
-		if(Time.frameCount % 30 == 0)
+		if(Time.frameCount % 10 == 0)
 		{
 			System.GC.Collect();
 		}
-	}
+	}*/
 
 	public void Debug_Log(string log)
 	{
