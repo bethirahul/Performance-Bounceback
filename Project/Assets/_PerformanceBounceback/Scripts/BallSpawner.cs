@@ -52,7 +52,7 @@ public class BallSpawner : MonoBehaviour
 		{
 			if(currentBallNum >= ball.Count)
 				currentBallNum = 0;
-			if(ball[currentBallNum].gameObject.activeSelf == false)
+			if(ball[currentBallNum].gameObject.activeSelf == false || ball[currentBallNum].ballStopped)
 			{
 				ball[currentBallNum].Activate(transform.position);
 				GM.Debug_Log("Found ball " + currentBallNum + " to activate; Searched " + count + " balls");
