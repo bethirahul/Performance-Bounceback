@@ -13,8 +13,7 @@ Open Project folder using Unity(2017.3.0f3).
 After the Library gets re-built, restart Unity (or else the hand controllers won't work).
 
 #### How to open the game:
-Download from my google drive: https://goo.gl/gEjrsr
-Upzip and open the executable file.
+Open the executable file in the Build folder.
 
 #### My LinkedIn profile
 https://www.linkedin.com/in/rahulbethi
