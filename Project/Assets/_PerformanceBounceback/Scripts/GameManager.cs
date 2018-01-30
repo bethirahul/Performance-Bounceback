@@ -7,17 +7,27 @@ public class GameManager : MonoBehaviour
 {
     private int score;
     public bool showDebug;
-    public float timeRemaining;
-    private bool gameEnded;
+    public float gameDuration;
+    private float timeRemaining = 0;
+    public bool gameEnded = true;
+    public Image score_bg;
 
     public Text time_text;
     public Text score_text;
 
+    public OVRInput.Controller controller;
+
 	//   S T A R T																										
 	void Start()
 	{
-		score = 0;
+		ResetGame();
+	}
+
+	private void ResetGame()
+	{
+		timeRemaining = gameDuration;
 		gameEnded = false;
+		score = 0;
 	}
 	
 	//   U P D A T E																									
@@ -35,9 +45,21 @@ public class GameManager : MonoBehaviour
 			{
 				timeRemaining = 0;
 				gameEnded = true;
+				time_text.text = "<b>Time's Up!</b>";
 				Debug_Log("Time's Up!");
 			}
-			time_text.text = ((int)timeRemaining).ToString();
+			else
+				time_text.text = ((int)timeRemaining + 1).ToString();
+		}
+
+		if(OVRInput.GetDown(OVRInput.Button.Two, controller))
+		{
+			ResetGame();
+		}
+
+		if(OVRInput.GetDown(OVRInput.Button.Start, controller))
+		{
+			Application.Quit();
 		}
 	}
 

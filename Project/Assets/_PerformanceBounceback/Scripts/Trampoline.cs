@@ -22,13 +22,16 @@ public class Trampoline : MonoBehaviour
 	}*/
 
     void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.CompareTag("Throwable"))
-        {
-            //Score Point
-			GM.IncrementScore(1);
-            //Particle effect
-            pSystem.Play();
+	{
+		if(col.gameObject.CompareTag("Throwable"))
+		{
+			if(!GM.gameEnded)
+			{
+				//Score Point
+				GM.IncrementScore(1);
+				//Particle effect
+				pSystem.Play();
+			}
         }
     }
 }
