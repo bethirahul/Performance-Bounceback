@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 				timeRemaining = 0;
 				gameEnded = true;
 				time_text.text = "<b>Time's Up!</b>";
-				Debug_Log("Time's Up!");
+				///Debug_Log("Time's Up!");
 			}
 			else
 				time_text.text = ((int)timeRemaining + 1).ToString();
@@ -74,14 +74,14 @@ public class GameManager : MonoBehaviour
 	{
 		score += value;
 		score_text.text = score.ToString();
-		Debug_Log("Score updated to: " + score);
+		///Debug_Log("Score updated to: " + score);
 	}
 
-	public void Debug_Log(string log)
+	/*public void Debug_Log(string log)
 	{
 		if(showDebug)
 			Debug.Log(log);
-	}
+	}*/
 
 	public void UpdateFPS()
 	{

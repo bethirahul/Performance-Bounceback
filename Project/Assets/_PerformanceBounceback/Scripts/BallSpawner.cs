@@ -53,7 +53,7 @@ public class BallSpawner : MonoBehaviour
 			if(ball[currentBallNum].gameObject.activeSelf == false || ball[currentBallNum].ballStopped)
 			{
 				ball[currentBallNum].Activate(transform.position);
-				GM.Debug_Log("Found ball " + currentBallNum + " to activate; Searched " + count + " balls");
+				///GM.Debug_Log("Found ball " + currentBallNum + " to activate; Searched " + count + " balls");
 				return;
 			}
 			currentBallNum++;
@@ -61,7 +61,7 @@ public class BallSpawner : MonoBehaviour
 		}
 		AddNewBall(ball.Count);// if this comes to this line, then all the balls in the list are active
 		// so, expanding the ball list by 1
-		GM.Debug_Log("All balls are active. Generated new ball; Total balls = " + ball.Count);
+		///GM.Debug_Log("All balls are active. Generated new ball; Total balls = " + ball.Count);
 		ball[ball.Count-1].Activate(transform.position);
 		currentBallNum = -1;
 
