@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
 
     public OVRInput.Controller controller;
 
+	public Text fps_text;
+    private float fpsDeltaTime;
+    private int fps;
+
 	//   S T A R T																										
 	void Start()
 	{
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
 		timeRemaining = gameDuration;
 		gameEnded = false;
 		score = 0;
+		score_text.text = score.ToString();
 	}
 	
 	//   U P D A T E																									
@@ -61,12 +66,14 @@ public class GameManager : MonoBehaviour
 		{
 			Application.Quit();
 		}
+
+		UpdateFPS();
 	}
 
 	public void IncrementScore(int value)
 	{
 		score += value;
-		score_text.text = value.ToString();
+		score_text.text = score.ToString();
 		Debug_Log("Score updated to: " + score);
 	}
 
@@ -74,5 +81,12 @@ public class GameManager : MonoBehaviour
 	{
 		if(showDebug)
 			Debug.Log(log);
+	}
+
+	public void UpdateFPS()
+	{
+		fpsDeltaTime += (Time.unscaledDeltaTime - fpsDeltaTime) * 0.1f;
+		fps = (int)(1.0f / fpsDeltaTime);
+		fps_text.text = "FPS: " + fps;
 	}
 }
