@@ -10,6 +10,7 @@ Oculus Rift with Touch controllers and compatible Windows machine to run VR game
 
 #### How to open the source code:
 Open Project folder using Unity(2017.3.0f3).
+After the Library gets re-built, restart Unity (or else the hand controllers won't work).
 
 #### How to open the game:
 Download from my google drive: https://goo.gl/gEjrsr
