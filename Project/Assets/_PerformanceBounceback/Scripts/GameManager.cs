@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float gameDuration;
     private float timeRemaining = 0;
     public bool gameEnded = true;
-    public Image score_bg;
+    ///public Image score_bg;
 
     public Text time_text;
     public Text score_text;
