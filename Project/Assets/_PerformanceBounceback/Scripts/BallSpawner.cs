@@ -18,8 +18,6 @@ public class BallSpawner : MonoBehaviour
 	[Tooltip("Interval between spawning balls")]
     public float cooldownLength = 0.5f;
 
-    private Vector3 vector3_zero = Vector3.zero;
-
     public GameManager GM;
     private int i;
 
